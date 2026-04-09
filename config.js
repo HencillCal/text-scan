@@ -49,14 +49,6 @@ function looksLikeBrowser(ua) {
   return lower.includes('mozilla');
 }
 
-  /*
-   RATE LIMITING
- */
-const rateLimit = {
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 60,                   // requests per window per IP
-};
-
   /* 
    SERVER
  */
@@ -67,6 +59,5 @@ module.exports = {
   allowedOrigins,
   isAllowedOrigin,
   looksLikeBrowser,
-  rateLimit,
   port,
 };
