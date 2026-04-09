@@ -17,6 +17,7 @@ const apiKeys = (process.env.API_KEYS || '')
     */
 const allowedOrigins = [
   'http://localhost:7432',
+  'http://localhost:5000',
   'https://ocr.giftedtech.co.ke',
   ...(process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()).filter(Boolean)
