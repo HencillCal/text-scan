@@ -1,8 +1,38 @@
 {
-  "apiKeys": [
-    "AIzaSyBXFT-D7urbH3U_lriAYPnMVZN0_YccAAg",
-    "AIzaSyCrnF6v44GNObjJs-UfAF0nUNKs6nhBU6Y",
-    "AIzaSyBcxTfm__DA68VFfJ51J0drx6xFoQmHLwc",
-    "AIzaSyDG0pm1F05PFUOkzxBHRR7Z1MXSLhSizkE"
-  ]
+  "_readme": "Add your API keys below. Gemini keys are used for OCR. Add as many as you have — they rotate automatically when one hits its quota.",
+
+  "gemini": {
+    "_info": "Google Gemini API keys — get them at https://aistudio.google.com/app/apikey",
+    "apiKeys": [
+      "AIzaSyBXFT-D7urbH3U_lriAYPnMVZN0_YccAAg",
+      "AIzaSyCrnF6v44GNObjJs-UfAF0nUNKs6nhBU6Y",
+      "AIzaSyBcxTfm__DA68VFfJ51J0drx6xFoQmHLwc",
+      "AIzaSyDG0pm1F05PFUOkzxBHRR7Z1MXSLhSizkE"
+    ]
+  },
+
+  "openai": {
+    "_info": "OpenAI API keys — get them at https://platform.openai.com/api-keys",
+    "apiKeys": []
+  },
+
+  "aimlapi": {
+    "_info": "AI/ML API keys — get them at https://aimlapi.com",
+    "apiKeys": []
+  },
+
+  "groq": {
+    "_info": "Groq API keys — get them at https://console.groq.com/keys",
+    "apiKeys": []
+  },
+
+  "anthropic": {
+    "_info": "Anthropic (Claude) API keys — get them at https://console.anthropic.com",
+    "apiKeys": []
+  },
+
+  "cohere": {
+    "_info": "Cohere API keys — get them at https://dashboard.cohere.com/api-keys",
+    "apiKeys": []
+  }
 }
