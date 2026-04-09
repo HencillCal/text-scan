@@ -9,7 +9,7 @@ require('dotenv').config({ quiet: true });
     */
 let apiKeys = [];
 try {
-  const settings = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'settings.json'), 'utf8'));
+  const settings = JSON.parse(require('fs').readFileSync(require('path').resolve(__dirname, 'settings.json'), 'utf8'));
   apiKeys = (settings.apiKeys || []).map(s => s.trim()).filter(Boolean).filter(s => !s.startsWith('your-gemini'));
 } catch (_) {}
 

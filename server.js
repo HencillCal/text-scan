@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
+const path = require('path');
 const { port } = require('./config');
 const { ensureUploadDir } = require('./lib/upload');
 const routes = require('./lib/routes');
@@ -37,7 +38,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('public', { maxAge: '1d' }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
 app.use(express.json());
 app.use(routes);
 
