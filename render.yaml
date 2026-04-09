@@ -11,9 +11,3 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: API_KEYS
-        sync: false          # Set this in the Render dashboard — comma-separated Gemini API keys
-      - key: SESSION_SECRET
-        sync: false          # Set this in the Render dashboard — any long random string
-      - key: ALLOWED_ORIGINS
-        sync: false          # Optional — add your custom domain here (e.g. https://ocr.example.com)
