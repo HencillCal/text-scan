@@ -47,10 +47,19 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: '😡 Internal server error' });
 });
 
-const server = app.listen(port, '0.0.0.0', () => {
-  console.log(`✅ TextScan ready on port ${port}`);
-  console.log(`✅ ApiKey slots loaded: ${require('./config').apiKeys.length}`);
-});
+// Start server only when run directly (not on Vercel)
+if (require.main === module) {
+  const server = app.listen(port, '0.0.0.0', () => {
+    console.log(`✅ TextScan ready on port ${port}`);
+    console.log(`✅ ApiKey slots loaded: ${require('./config').apiKeys.length}`);
+  });
 
-process.on('SIGTERM', () => server.close(() => process.exit(0)));
-process.on('SIGINT',  () => server.close(() => process.exit(0)));
+  process.on('SIGTERM', () => server.close(() => process.exit(0)));
+  process.on('SIGINT',  () => server.close(() => process.exit(0)));
+} else {
+  console.log(`✅ TextScan loaded as serverless function`);
+  console.log(`✅ ApiKey slots loaded: ${require('./config').apiKeys.length}`);
+}
+
+// Export for Vercel serverless
+module.exports = app;
