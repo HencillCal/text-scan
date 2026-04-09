@@ -4,10 +4,16 @@
   "gemini": {
     "_info": "Google Gemini API keys — get them at https://aistudio.google.com/app/apikey",
     "apiKeys": [
-      "AIzaSyBXFT-D7urbH3U_lriAYPnMVZN0_YccAAg",
-      "AIzaSyCrnF6v44GNObjJs-UfAF0nUNKs6nhBU6Y",
-      "AIzaSyBcxTfm__DA68VFfJ51J0drx6xFoQmHLwc",
-      "AIzaSyDG0pm1F05PFUOkzxBHRR7Z1MXSLhSizkE"
+    "AIzaSyAL_88JkN0b_-iA3qHTrhxl53ZAVY78kJ0",
+    "AIzaSyDgGVQYvtxIcxN5RUM6bnv2rgSHoF8-ac8",
+    "AIzaSyBcxTfm__DA68VFfJ51J0drx6xFoQmHLwc",
+    "AIzaSyCrnF6v44GNObjJs-UfAF0nUNKs6nhBU6Y",
+    "AIzaSyDuhq1zYWuQ0eLxRermoZwVURcWTcJuY0o",
+    "AIzaSyBXFT-D7urbH3U_lriAYPnMVZN0_YccAAg",
+    "AIzaSyDG0pm1F05PFUOkzxBHRR7Z1MXSLhSizkE",
+    "AIzaSyAlYP9JffB0sVXyCZicnbQN3x7kdlvvP9I",
+    "AIzaSyD1vvlohWTxHiae6d3UPoux5SZ1lhsJFEY",
+    "AIzaSyBXBqVK-54x8DH53cEClUajBkjbS9tmzbQ"
     ]
   },
 
@@ -18,7 +24,16 @@
 
   "aimlapi": {
     "_info": "AI/ML API keys — get them at https://aimlapi.com",
-    "apiKeys": []
+    "apiKeys": [
+    "789911d634a0728dca1b9294bbb2344d",
+    "bfc01ad309742d7b2b4f26a33aed10df",
+    "6b4c01fc575c5f30decb9560cc471ef9",
+    "f3633015135804f2cf0a0469c13a66e7",
+    "3f652c95fa32ba98905bbc47a7776684",
+    "cd4a894fe040bbdbddd1eca742a493fc",
+    "ad543ea37eb9b0d4b2b80239c11ae493",
+    "3e47310c645754e56bc45ba82fc425f1"
+    ]
   },
 
   "groq": {
