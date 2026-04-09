@@ -1,5 +1,5 @@
 {
-  "_readme": "Add your API keys below. Gemini keys are used for OCR. Add as many as you have — they rotate automatically when one hits its quota.",
+  "_readme": "Add your API keys below. The app tries providers in order: Gemini → AI/ML API → OpenAI → Groq. If one fails or hits quota, the next is used automatically.",
 
   "gemini": {
     "_info": "Google Gemini API keys — get them at https://aistudio.google.com/app/apikey",

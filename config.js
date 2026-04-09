@@ -1,30 +1,37 @@
 'use strict';
 require('dotenv').config({ quiet: true });
 
-  /*
-   API KEYS
-   Keys are loaded from settings.json (apiKeys array) first.
-   Falls back to API_KEYS env var (comma-separated) if settings.json has none.
-   Keys are tried in order; if one hits its quota the next is used automatically.
-    */
-let apiKeys = [];
+const fs   = require('fs');
+const path = require('path');
+
+/* Load settings.json */
+let settings = {};
 try {
-  const settings = JSON.parse(require('fs').readFileSync(require('path').resolve(__dirname, 'settings.json'), 'utf8'));
-  const keys = (settings.gemini && settings.gemini.apiKeys) || settings.apiKeys || [];
-  apiKeys = keys.map(s => s.trim()).filter(Boolean).filter(s => s.startsWith('AIza') || (!s.startsWith('your-')));
+  settings = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'settings.json'), 'utf8'));
 } catch (_) {}
 
-if (apiKeys.length === 0) {
-  apiKeys = (process.env.API_KEYS || '')
-    .split(',')
-    .map(s => s.trim())
-    .filter(Boolean);
+function loadKeys(section, envFallback) {
+  const keys = (settings[section] && settings[section].apiKeys) || [];
+  const valid = keys.map(s => s.trim()).filter(s => s && !s.startsWith('your-'));
+  if (valid.length > 0) return valid;
+  // Env var fallback
+  return (process.env[envFallback] || '').split(',').map(s => s.trim()).filter(Boolean);
 }
-  
-  /* 
-   ALLOWED ORIGINS
-   Hardcoded defaults + comma-separated ALLOWED_ORIGINS in .env
-    */
+
+/* ── API Keys per provider ── */
+const geminiKeys  = loadKeys('gemini',    'API_KEYS');
+const aimlKeys    = loadKeys('aimlapi',   'AIML_API_KEYS');
+const openaiKeys  = loadKeys('openai',    'OPENAI_API_KEYS');
+const groqKeys    = loadKeys('groq',      'GROQ_API_KEYS');
+
+/* Legacy: top-level apiKeys in settings (old format) */
+const legacyKeys = ((settings.apiKeys || []).map(s => s.trim()).filter(s => s && !s.startsWith('your-')));
+if (geminiKeys.length === 0 && legacyKeys.length > 0) geminiKeys.push(...legacyKeys);
+
+/* Used by server.js for startup log */
+const apiKeys = geminiKeys;
+
+/* ── Allowed Origins ── */
 const allowedOrigins = [
   'http://localhost:7432',
   'http://localhost:5000',
@@ -34,23 +41,19 @@ const allowedOrigins = [
     : []),
 ];
 
-// Pattern-based: allow common preview / deploy domains
 const allowedPatterns = [
   /^https?:\/\/[a-z0-9-]+\.giftedtech\.co\.ke$/,
   /^https?:\/\/[a-z0-9-]+\.replit\.app$/,
   /^https?:\/\/[a-z0-9-]+\.repl\.co$/,
-  /^https?:\/\/[a-z0-9-]+-\d+\.[a-z0-9]+\.replit\.dev$/,
   /^https?:\/\/.*\.replit\.dev$/,
 ];
 
-/** True when the Origin is allowed (or absent — same-origin browser tabs). */
 function isAllowedOrigin(origin) {
   if (!origin) return true;
   if (allowedOrigins.includes(origin)) return true;
   return allowedPatterns.some(p => p.test(origin));
 }
 
-/** Blocks curl / wget / Python-requests / bots. Not foolproof, raises the bar. */
 function looksLikeBrowser(ua) {
   if (!ua) return false;
   const lower = ua.toLowerCase();
@@ -59,13 +62,15 @@ function looksLikeBrowser(ua) {
   return lower.includes('mozilla');
 }
 
-  /* 
-   SERVER
- */
+/* ── Server ── */
 const port = parseInt(process.env.PORT || '7432', 10);
 
 module.exports = {
   apiKeys,
+  geminiKeys,
+  aimlKeys,
+  openaiKeys,
+  groqKeys,
   allowedOrigins,
   isAllowedOrigin,
   looksLikeBrowser,
