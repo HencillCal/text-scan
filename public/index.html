@@ -946,6 +946,13 @@
       const conf = r.confidence || 0;
       const cc = conf >= 75 ? 'c-h' : conf >= 45 ? 'c-m' : 'c-l';
       const cl = conf >= 75 ? 'High' : conf >= 45 ? 'Medium' : 'Low';
+      // Show a friendly error if extraction failed
+      let errMsg = '';
+      if (!r.success && r.error) {
+        try { errMsg = JSON.parse(r.error).error?.message || r.error; } catch(_) { errMsg = r.error; }
+        // Trim to first sentence for display
+        errMsg = errMsg.split('\n')[0].replace(/^😡\s*/, '').trim();
+      }
       const card = document.createElement('div');
       card.className = 'result-card';
       card.style.animationDelay = (i * 60) + 'ms';
@@ -959,7 +966,7 @@
             <i class="fas fa-copy"></i> Copy
           </button>
         </div>
-        <div class="result-text ${!text ? 'empty' : ''}" id="text-${i}">${text ? esc(text) : 'No text detected in this image.'}</div>
+        <div class="result-text ${!text ? 'empty' : ''}" id="text-${i}">${text ? esc(text) : errMsg ? `<span style="color:var(--danger,#e55)">⚠️ ${esc(errMsg)}</span>` : 'No text detected in this image.'}</div>
       `;
       rc.appendChild(card);
     });
