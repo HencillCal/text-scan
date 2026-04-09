@@ -25,7 +25,11 @@ const allowedOrigins = [
 
 // Pattern-based: allow common preview / deploy domains
 const allowedPatterns = [
-  /^https?:\/\/[a-z0-9-]+\.giftedtech\.co\.ke$/
+  /^https?:\/\/[a-z0-9-]+\.giftedtech\.co\.ke$/,
+  /^https?:\/\/[a-z0-9-]+\.replit\.app$/,
+  /^https?:\/\/[a-z0-9-]+\.repl\.co$/,
+  /^https?:\/\/[a-z0-9-]+-\d+\.[a-z0-9]+\.replit\.dev$/,
+  /^https?:\/\/.*\.replit\.dev$/,
 ];
 
 /** True when the Origin is allowed (or absent — same-origin browser tabs). */
