@@ -3,13 +3,22 @@ require('dotenv').config({ quiet: true });
 
   /*
    API KEYS
-   Set API_KEYS=key1,key2,key3 in .env
+   Keys are loaded from settings.json (apiKeys array) first.
+   Falls back to API_KEYS env var (comma-separated) if settings.json has none.
    Keys are tried in order; if one hits its quota the next is used automatically.
     */
-const apiKeys = (process.env.API_KEYS || '')
-  .split(',')
-  .map(s => s.trim())
-  .filter(Boolean);
+let apiKeys = [];
+try {
+  const settings = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'settings.json'), 'utf8'));
+  apiKeys = (settings.apiKeys || []).map(s => s.trim()).filter(Boolean).filter(s => !s.startsWith('your-gemini'));
+} catch (_) {}
+
+if (apiKeys.length === 0) {
+  apiKeys = (process.env.API_KEYS || '')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+}
   
   /* 
    ALLOWED ORIGINS
